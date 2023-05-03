@@ -1,0 +1,27 @@
+{{ define "base" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/static/inter/inter.css">
+	<link rel="stylesheet" href="/static/new.min.css">
+</head>
+<body>
+	{{- template "header" -}}
+	{{- template "content" . -}}
+</body>
+{{ end }}
+
+{{ define "header" }}
+	<header>
+		<h1>mendel.sh</h1>
+		<nav>software developer</nav>
+	</header>
+{{ end }}
+
+{{ define "content" }}
+	<div class="container">
+		{{ . }}
+	</div>
+{{ end }}
