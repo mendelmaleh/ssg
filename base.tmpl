@@ -8,9 +8,16 @@
 	<link rel="stylesheet" href="/static/new.min.css">
 </head>
 <body>
+	{{ if eq .Name "resume.md" }}
+	{{- template "header-resume" -}}
+	{{ else }}
 	{{- template "header" -}}
-	{{- template "content" . -}}
+	{{ end }}
+	{{- template "content" .Content -}}
 </body>
+{{ if eq .Name "resume.md" }}
+{{- template "style-resume" -}}
+{{ end }}
 {{ end }}
 
 {{ define "header" }}
@@ -20,8 +27,26 @@
 	</header>
 {{ end }}
 
+{{ define "header-resume" }}
+	<header>
+		<h1>Mendel Elmaleh</h1>
+		<nav>
+			<a href="https://mendel.sh">software developer</a> /
+			<a href="mailto:mendelmaleh@gmail.com">mendelmaleh@gmail.com</a>
+		</nav>
+	</header>
+{{ end }}
+
 {{ define "content" }}
 	<div class="container">
 		{{ . }}
 	</div>
+{{ end }}
+
+{{ define "style-resume" }}
+<style media="print">
+	body{max-width:1500px}
+	.container{column-count:2;column-gap:2rem}
+	.container>h2:last-of-type{break-before:column}h3,p{margin-block-start:.5em;margin-block-end:.5em}
+</style>
 {{ end }}
