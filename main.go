@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"flag"
 	"fmt"
 	"html/template"
 	"io"
@@ -21,8 +22,8 @@ type Page struct {
 var (
 	tmpl = template.Must(template.ParseFiles("base.tmpl"))
 
-	srcdir = "src"
-	outdir = "out"
+	srcdir string
+	outdir string
 )
 
 func walkfunc(path string, info fs.FileInfo, err error) error {
@@ -78,8 +79,14 @@ func walkfunc(path string, info fs.FileInfo, err error) error {
 	return err
 }
 
+func init() {
+	flag.StringVar(&srcdir, "src", "src", "source directory")
+	flag.StringVar(&outdir, "out", "site", "out directory")
+	flag.Parse()
+}
+
 func main() {
-	if err := filepath.Walk("src", walkfunc); err != nil {
+	if err := filepath.Walk(srcdir, walkfunc); err != nil {
 		log.Fatal(err)
 	}
 }
