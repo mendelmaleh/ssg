@@ -49,6 +49,10 @@ func walkfunc(path string, info fs.FileInfo, err error) error {
 			return err
 		}
 
+		// ignore frontmatter
+		parts := bytes.SplitN(doc, []byte("\n----\n"), 2)
+		doc = parts[len(parts)-1]
+
 		doc = markdown.ToHTML(doc, nil, nil)
 		dest = dest[:len(dest)-2] + "html"
 
